@@ -1,55 +1,26 @@
 {%extends "layout.html"%}
-
 {%block container %}
+{% import "_macros.html" as macros %}
 <body>
 
-<form method="POST" action="/guardar_alumno" class="max-w-sm mx-auto space-y-4">
+<form method="POST" action="" class="max-w-sm mx-auto space-y-4">
+    {{ form.csrf_token }}
+<input type="hidden" name="csrf_token" value="{{csrf_token()}}"/>
 
-    <div>
-        <label for="id" class="block mb-2.5 text-sm font-medium text-heading">
-            ID
-        </label>
-        <input type="number" name="id" id="id"
-            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs"
-            placeholder="Ingresa el ID"
-            required />
+    <div class="relative z-0 w-full mb-5 group">
+        {{macros.campoNuevo(form.nombre, class="block mb-2.5 text-sm font-medium text-heading" )}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+        {{macros.campoNuevo(form.apaterno, class="block mb-2.5 text-sm font-medium text-heading" )}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+        {{macros.campoNuevo(form.email, class="block mb-2.5 text-sm font-medium text-heading" )}}
     </div>
 
     <div>
-        <label for="nombre" class="block mb-2.5 text-sm font-medium text-heading">
-            Nombre
-        </label>
-        <input type="text" name="nombre" id="nombre"
-            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs"
-            placeholder="Ingresa el nombre"
-            required />
-    </div>
-
-    
-    <div>
-        <label for="apaterno" class="block mb-2.5 text-sm font-medium text-heading">
-            Apellido Paterno
-        </label>
-        <input type="text" name="apaterno" id="apaterno"
-            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs"
-            placeholder="Ingresa el apellido paterno"
-            required />
-    </div>
-
-   
-    <div>
-        <label for="email" class="block mb-2.5 text-sm font-medium text-heading">
-            Correo Electrónico
-        </label>
-        <input type="email" name="email" id="email"
-            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs"
-            placeholder="ejemplo@correo.com"
-            required />
-    </div>
-
-    <div>
-    <button type="submit"
-        class="w-full py-3 px-6 text-white font-semibold rounded-xl 
+     <button type="submit"
+        class="flex-1 py-3 px-6 text-white font-semibold rounded-xl 
                bg-gradient-to-r from-blue-600 to-indigo-600 
                shadow-lg shadow-blue-500/30 
                hover:from-blue-700 hover:to-indigo-700 
@@ -59,10 +30,16 @@
                transition-all duration-300 ease-in-out">
         Guardar Alumno
     </button>
+
+    <a href="{{ url_for('index') }}"
+       class="flex-1 text-white bg-danger border border-transparent 
+              hover:bg-danger-strong focus:ring-4 focus:ring-danger-medium 
+              shadow-xs font-medium rounded-xl text-sm 
+              px-6 py-3 text-center 
+              active:scale-95 transition-all duration-300 ease-in-out">
+        Cancelar
+    </a>
 </div>
-
-
 </form>
-<script src="https://cdn.tailwindcss.com"></script>
 </body>
 {%endblock%} 
