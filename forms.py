@@ -22,3 +22,23 @@ class UserForm2(Form):
         validators.DataRequired(message="El telefono es requerido"),
         validators.DataRequired(message="Ingrese un telefono valido")
     ])
+    
+    
+class UserForm(Form):
+    matricula = IntegerField("matricula", [
+    validators.DataRequired(message="La matrícula es requerida")
+    ])
+    nombre=StringField("nombre",[
+        validators.DataRequired(message="El nombre es requerido"),
+        validators.length(min=4,max=20,message="requiere min =4 y max = 20")
+    ])
+    apellidos=StringField("apellidos",[
+        validators.DataRequired(message="Los apellidos son requeridos")
+    ])
+    especialidad=StringField("especialidad",[
+        validators.DataRequired(message="La especialidad es requerida")
+    ])
+    email=EmailField("correo",[
+        validators.DataRequired(message="El correo es requerido"),
+        validators.Email(message="Ingrese un correo valido")
+    ])

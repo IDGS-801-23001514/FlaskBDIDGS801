@@ -6,24 +6,22 @@
 <form method="POST" action="" class="max-w-sm mx-auto space-y-4">
     {{ form.csrf_token }}
 <input type="hidden" name="csrf_token" value="{{csrf_token()}}"/>
-
-    <div  class="relative z-0 w-full mb-5 group">
-        {{macros.campoNuevo(form.id, class="block mb-2.5 text-sm font-medium text-heading",readonly=true )}}
+    <div class="relative z-0 w-full mb-5 group">
+        {{macros.campoNuevo(form.matricula, class="block mb-2.5 text-sm font-medium text-heading" )}}
     </div>
-
     <div class="relative z-0 w-full mb-5 group">
         {{macros.campoNuevo(form.nombre, class="block mb-2.5 text-sm font-medium text-heading" )}}
     </div>
-
     <div class="relative z-0 w-full mb-5 group">
         {{macros.campoNuevo(form.apellidos, class="block mb-2.5 text-sm font-medium text-heading" )}}
     </div>
     <div class="relative z-0 w-full mb-5 group">
-        {{macros.campoNuevo(form.email, class="block mb-2.5 text-sm font-medium text-heading" )}}
+        {{macros.campoNuevo(form.especialidad, class="block mb-2.5 text-sm font-medium text-heading" )}}
     </div>
     <div class="relative z-0 w-full mb-5 group">
-        {{macros.campoNuevo(form.telefono, class="block mb-2.5 text-sm font-medium text-heading" )}}
+        {{macros.campoNuevo(form.email, class="block mb-2.5 text-sm font-medium text-heading" )}}
     </div>
+    
 
     <div>
      <button type="submit"
@@ -35,10 +33,10 @@
                transform hover:-translate-y-0.5 
                active:scale-95 
                transition-all duration-300 ease-in-out">
-        Eliminar Alumno
+        Guardar Maestro
     </button>
 
-    <a href="{{ url_for('index') }}"
+    <a href="{{ url_for('maestros.listadoMaes') }}"
        class="flex-1 text-white bg-danger border border-transparent 
               hover:bg-danger-strong focus:ring-4 focus:ring-danger-medium 
               shadow-xs font-medium rounded-xl text-sm 
