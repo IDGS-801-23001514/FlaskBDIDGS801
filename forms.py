@@ -1,5 +1,5 @@
-from wtforms import Form
-from wtforms import StringField, IntegerField,PasswordField,FloatField, BooleanField
+from wtforms import Form, HiddenField
+from wtforms import StringField, IntegerField,PasswordField,FloatField, BooleanField,SelectField,TextAreaField
 from wtforms import EmailField
 from wtforms import validators
 
@@ -42,3 +42,25 @@ class UserForm(Form):
         validators.DataRequired(message="El correo es requerido"),
         validators.Email(message="Ingrese un correo valido")
     ])
+    
+class CursoForm(Form):
+    id = HiddenField()
+    nombre = StringField("Nombre del Curso", [
+        validators.DataRequired(message="El nombre es obligatorio")
+    ])
+
+    descripcion = TextAreaField("Descripción")
+
+    maestro_id = SelectField(
+        "Maestro",
+        coerce=int,
+        validators=[validators.DataRequired(message="Seleccione un maestro")]
+    )
+
+
+class InscripcionForm(Form):
+    alumno_id = SelectField(
+        "Alumno",
+        coerce=int,
+        validators=[validators.DataRequired(message="Seleccione un alumno")]
+    )

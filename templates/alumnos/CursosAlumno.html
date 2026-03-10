@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block container %}
+
+<div class="max-w-3xl mx-auto bg-white p-6 shadow rounded">
+
+    <h2 class="text-2xl font-bold mb-4">
+        Cursos de {{ alumno.nombre }} {{ alumno.apellidos }}
+    </h2>
+
+    <hr class="mb-4">
+
+    {% if alumno.cursos %}
+        <ul class="space-y-3">
+            {% for curso in alumno.cursos %}
+            <li class="p-4 border rounded bg-neutral-secondary-soft">
+                <h3 class="font-bold text-lg">
+                    {{ curso.nombre }}
+                </h3>
+                <p class="text-sm text-gray-600">
+                    {{ curso.descripcion }}
+                </p>
+                <p class="text-sm mt-1">
+                    <strong>Profesor:</strong>
+                    {{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}
+                </p>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="p-4 bg-yellow-100 rounded">
+            ⚠️ Este alumno no está inscrito en ningún curso.
+        </div>
+    {% endif %}
+
+    <div class="mt-6">
+        <a href="{{ url_for('alumno.index') }}"
+           class="bg-gray-500 text-white px-4 py-2 rounded">
+            Regresar
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

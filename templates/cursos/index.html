@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block container %}
+
+<div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default p-4">
+
+  <a href="{{ url_for('curso.nuevo') }}"
+     class="bg-blue-700 inline-flex items-center gap-2 
+            bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 
+            hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 
+            font-medium rounded-base text-sm px-4 py-2.5 text-white w-full">
+
+      <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+
+      NUEVO CURSO
+  </a>
+
+  <table class="w-full text-sm text-left rtl:text-right text-body mt-4">
+        <thead class="bg-neutral-secondary-soft border-b border-default">
+            <tr>
+                <th class="px-6 py-3 font-medium">ID</th>
+                <th class="px-6 py-3 font-medium">Nombre</th>
+                <th class="px-6 py-3 font-medium">Descripción</th>
+                <th class="px-6 py-3 font-medium">Maestro</th>
+                <th class="px-6 py-3 font-medium">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          {% for curso in cursos %}
+            <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
+
+                <td class="px-6 py-4">
+                  {{ curso.id }}
+                </td>
+
+                <td class="px-6 py-4">
+                  {{ curso.nombre }}
+                </td>
+
+                <td class="px-6 py-4">
+                  {{ curso.descripcion }}
+                </td>
+
+                <td class="px-6 py-4">
+                  {{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}
+                </td>
+
+                <td class="px-6 py-4 space-x-4">
+                    <a href="{{ url_for('curso.inscribir', curso_id=curso.id) }}"
+                       class="font-medium text-fg-brand hover:underline">
+                        Inscribir
+                    </a>
+                </td>
+                <td class="px-6 py-4 space-x-4">
+                    <a href="{{ url_for('curso.eliminar', id=curso.id) }}"
+                       class="font-medium text-fg-brand hover:underline">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+  </table>
+
+</div>
+
+{% endblock %}

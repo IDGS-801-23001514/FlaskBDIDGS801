@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<form method="POST" class="max-w-lg mx-auto bg-white p-6 shadow rounded">
+    {{ form.csrf_token }}
+<input type="hidden" name="csrf_token" value="{{csrf_token()}}"/>
+
+    <h2 class="text-2xl font-bold mb-4">
+        Inscribir Alumno en: {{ curso.nombre }}
+    </h2>
+
+    <div class="mb-4">
+        {{ macros.campoNuevo(form.alumno_id, class="block mb-2 text-sm font-medium") }}
+    </div>
+
+    <div class="flex justify-between">
+        <a href="{{ url_for('curso.index') }}"
+           class="bg-gray-500 text-white px-4 py-2 rounded">
+            Cancelar
+        </a>
+
+        <button type="submit"
+                class="bg-green-600 bg-blue-700 text-white px-4 py-2 rounded">
+            Inscribir
+        </button>
+    </div>
+
+</form>
+
+<hr class="my-6">
+
+<div class="max-w-lg mx-auto bg-neutral-primary-soft border border-default p-6 shadow-xs rounded-base mt-4">
+
+    <h3 class="text-xl font-bold mb-4 tracking-wide uppercase text-heading flex items-center gap-2">
+        <svg class="w-6 h-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  d="M16 14a4 4 0 10-8 0m8 0v1a4 4 0 01-8 0v-1m8 0H8"/>
+        </svg>
+        ALUMNOS INSCRITOS
+    </h3>
+
+    <ul class="space-y-3">
+        {% for alumno in curso.alumnos %}
+            <li class="flex items-center justify-between bg-white border border-default rounded-base px-4 py-2 shadow-sm">
+
+                <span class="font-semibold uppercase tracking-wide text-body">
+                    • {{ alumno.nombre }} {{ alumno.apellidos }}
+                </span>
+
+            </li>
+        {% else %}
+            <li class="text-center text-gray-500 italic py-4">
+                🚫 NO HAY ALUMNOS INSCRITOS
+            </li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+{% endblock %}

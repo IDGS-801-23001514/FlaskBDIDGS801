@@ -56,6 +56,9 @@
                 <td class="px-6 py-4">
                     <a href="eliminar?id={{ alumn.id }}" class="font-medium text-fg-brand hover:underline">Eliminar</a>
                 </td>
+                <td class="px-6 py-4">
+                    <a href="{{ url_for('alumno.cursosAlumno', id=alumn.id) }}"class="font-medium text-fg-brand hover:underline">Cursos</a>
+                </td>
             </tr>
             
             {%endfor%}

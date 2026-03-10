@@ -84,6 +84,16 @@ def eliminar():
             return redirect(url_for('alumno.index'))
     return render_template("alumnos/eliminar.html", form=create_form)
 
+@alumno.route("/cursosAlumno")
+def cursosAlumno():
+    id = request.args.get("id")
+    alumno_obj = Alumnos.query.get_or_404(id)
+
+    return render_template(
+        "alumnos/cursosAlumno.html",
+        alumno=alumno_obj
+    )
+
 
 @alumno.route("/index")
 def index():

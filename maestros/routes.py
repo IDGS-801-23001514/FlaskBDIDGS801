@@ -1,6 +1,6 @@
 from . import maestros
 
-
+from sqlalchemy.exc import IntegrityError
 from flask import Flask, render_template, request, redirect, url_for
 from flask import flash
 from flask_wtf.csrf import CSRFProtect
@@ -86,16 +86,29 @@ def eliminar():
 
 @maestros.route("/maestros", methods=['GET','POST'])
 def maestro():
-    create_form=forms.UserForm(request.form)
-    if request.method=='POST':
-        maes=Maestros(matricula=create_form.matricula.data,
-                     nombre=create_form.nombre.data,
-                     apellidos=create_form.apellidos.data,
-                     especialidad=create_form.especialidad.data,
-                     email=create_form.email.data)
-        db.session.add(maes)
-        db.session.commit()
-        return redirect(url_for('maestros.listadoMaes'))
+    create_form = forms.UserForm(request.form)
+    if request.method == 'POST' and create_form.validate():
+        matricula = create_form.matricula.data
+        existe = Maestros.query.filter_by(matricula=matricula).first()
+        if existe:
+            flash("⚠️ La matrícula ya está registrada", "warning")
+            return render_template("maestros/maestros.html", form=create_form)
+        try:
+            maes = Maestros(
+                matricula=matricula,
+                nombre=create_form.nombre.data,
+                apellidos=create_form.apellidos.data,
+                especialidad=create_form.especialidad.data,
+                email=create_form.email.data
+            )
+            db.session.add(maes)
+            db.session.commit()
+            flash("✅ Maestro registrado correctamente", "success")
+            return redirect(url_for('maestros.listadoMaes'))
+        except Exception as e:
+            db.session.rollback()
+            flash("❌ Error al guardar el maestro", "danger")
+
     return render_template("maestros/maestros.html", form=create_form)
 
 @maestros.route("/listadoMaes")
